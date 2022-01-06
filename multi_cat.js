@@ -70,7 +70,7 @@ async function main(){
     var rips1 = [];
     var rips2 = [];
     
-    document.getElementById("output").innerHTML = "Working ion your request...";
+    document.getElementById("output").innerHTML = "Working on your request...";
     
     for (let item of catName){
         if(catName.indexOf(item) == 0){
