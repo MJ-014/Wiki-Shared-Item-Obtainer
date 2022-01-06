@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Fandom Category Grabber</title>
+        <script src="multi_cat.js"></script>
+    </head>
+    <body>
+        <table class="center">
+            <tr>
+                <td>Wiki:</td>
+                <td><input id="wiki"></td>
+            </tr>
+            <tr>
+                <td>Categories:</td>
+                <td><textarea id="cat"></textarea></td>
+            </tr>
+            <tr>
+                <td><button onclick="main()">Search</button></td>
+            </tr>
+        </table>
+        <p id="output">Your output</p>
+
+        <style>
+            .center{
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: auto;
+            }
+            td{
+                vertical-align: auto;
+            }
+            textarea {
+                width: 300px;
+                height: 150px;
+            }
+        </style>
+    </body>
+</html>
