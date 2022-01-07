@@ -1,5 +1,3 @@
-//categories = ['Citizens of Beach City', 'Fusion Gems']
-
 async function getJason(url, arr){
     var response = await fetch(url);
     var jason = await response.json();
