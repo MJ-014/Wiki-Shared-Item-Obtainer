@@ -82,9 +82,7 @@ async function main(){
     }
     
     for(let item of rips1){
-        console.log(rips1.indexOf(item))
         rips1[rips1.indexOf(item)] = rips1.indexOf(item) + 1 + " - " + item;
-        console.log(item)
     }
     
     document.getElementById("output").innerHTML = rips1.join("<br>");
