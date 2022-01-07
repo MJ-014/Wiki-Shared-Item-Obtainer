@@ -72,10 +72,10 @@ async function main(){
     
     for (let item of catName){
         if(catName.indexOf(item) == 0){
-            await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=5&origin=*&format=json", rips1); 
+            await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1); 
         }
         else{
-            await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=5&origin=*&format=json", rips2); 
+            await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips2); 
             rips1 = await intersection(rips1, rips2);
             rips2 = [];
         }
