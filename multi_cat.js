@@ -1,11 +1,11 @@
 async function getJason(url, arr){
     var response = await fetch(url);
     var jason = await response.json();
-    if(jason["continue"] !== undefined){
-        var cont = await jason['continue']['cmcontinue']
+    if(jason.continue !== undefined){
+        var cont = await jason.continue.cmcontinue
         try{
-            jason['query']['categorymembers'].forEach(element => {
-                arr.push(element['title']);
+            jason.query.categorymembers.forEach(element => {
+                arr.push(element.title);
             })
         }
         catch(error){
@@ -16,12 +16,12 @@ async function getJason(url, arr){
             var response = await fetch(url + "&cmcontinue=" + cont, {method: 'GET'});
             var jason = await response.json();
             if(jason["continue"] !== undefined){
-                var cont = jason['continue']['cmcontinue']
+                var cont = jason.continue.cmcontinue
             }
             else{
                 try{
-                    jason['query']['categorymembers'].forEach(element => {
-                        arr.push(element['title']);
+                    jason.query.categorymembers.forEach(element => {
+                        arr.push(element.title);
                     })
                 }
                 catch(error){
@@ -30,8 +30,8 @@ async function getJason(url, arr){
                 break;
             }
             try{
-                jason['query']['categorymembers'].forEach(element => {
-                    arr.push(element['title']);
+                jason.query.categorymembers.forEach(element => {
+                    arr.push(element.title);
                 })
             }
             catch(error){
@@ -42,8 +42,8 @@ async function getJason(url, arr){
     }
     else{
         try{
-            jason['query']['categorymembers'].forEach(element => {
-                arr.push(element['title']);
+            jason.query.categorymembers.forEach(element => {
+                arr.push(element.title);
             })
         }
         catch(error){
@@ -81,7 +81,11 @@ async function main(){
         }
     }
     
+    for(let item of rips1){
+        console.log(rips1.indexOf(item))
+        rips1[rips1.indexOf(item)] = rips1.indexOf(item) + 1 + " - " + item;
+        console.log(item)
+    }
+    
     document.getElementById("output").innerHTML = rips1.join("<br>");
 }
-
-
