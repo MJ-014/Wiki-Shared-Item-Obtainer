@@ -81,8 +81,10 @@ async function main(){
         }
     }
     
-    for(let item of rips1){
-        rips1[rips1.indexOf(item)] = rips1.indexOf(item) + 1 + " - " + item;
+    if(document.getElementById('number').checked){
+        for(let item of rips1){
+            rips1[rips1.indexOf(item)] = rips1.indexOf(item) + 1 + " - " + item;
+        }
     }
     
     document.getElementById("output").innerHTML = rips1.join("<br>");
