@@ -64,22 +64,25 @@ async function main(){
         alert("Please provide a wiki.");
         return;
     }
-    var catName = document.getElementById("cat").value.split("\n");
+    var catName1 = document.getElementById("cat1").value.split("\n");
+    var catName2 = document.getElementById("cat2").value.split("\n");
     var rips1 = [];
     var rips2 = [];
     
     document.getElementById("output").innerHTML = "Working on your request...";
     
-    for (let item of catName){
-        if(catName.indexOf(item) == 0){
-            await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1); 
-        }
-        else{
-            await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips2); 
-            rips1 = await intersection(rips1, rips2);
-            rips2 = [];
+    for (let cate of [catName1, catName2]){
+        for (let item of cate){
+            if([catName1, catName2].indexOf(cate) == 0){
+                await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1); 
+            }
+            else{
+                await getJason("https://" + wiki + ".fandom.com/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips2); 
+            }
         }
     }
+
+    rips1 = await intersection(rips1, rips2);
     
     if(document.getElementById('number').checked){
         for(let item of rips1){
