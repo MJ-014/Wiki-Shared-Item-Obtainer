@@ -66,9 +66,15 @@ async function main(){
     }
     var catName1 = document.getElementById("cat1").value.split("\n");
     var catName2 = document.getElementById("cat2").value.split("\n");
+    var method;
     var rips1 = [];
+    var rips2_1 = [];
     var rips2 = [];
-    
+
+    if(document.getElementById("methodAnd").checked){
+        method = "and";
+    }
+
     document.getElementById("output").innerHTML = "Working on your request...";
     
     for (let cate of [catName1, catName2]){
@@ -77,7 +83,20 @@ async function main(){
                 await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1); 
             }
             else{
-                await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips2); 
+                await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips2_1);
+                if (method == "and")
+                {
+                    if (cate.indexOf(item) == 0){
+                        rips2 = rips2_1;
+                    }
+                    else{
+                        rips2 = intersection(rips2_1, rips2);
+                    }
+                }
+                else{
+                    rips2 = rips2_1;
+                }
+                rips2_1 = [];
             }
         }
     }
