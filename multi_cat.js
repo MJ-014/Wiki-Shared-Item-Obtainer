@@ -78,11 +78,13 @@ async function main(){
     document.getElementById("output").innerHTML = "Working on your request...";
     
     for (let cate of [catName1, catName2]){
-        for (let item of cate){
-            if([catName1, catName2].indexOf(cate) == 0){
+        if([catName1, catName2].indexOf(cate) == 0){
+            for (let item of cate){
                 await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1); 
             }
-            else{
+        }
+        else{
+            for (let item of cate){
                 await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips2_1);
                 if (method == "and")
                 {
@@ -94,7 +96,7 @@ async function main(){
                     }
                 }
                 else{
-                    rips2 = rips2_1;
+                    rips2 = rips2.concat(rips2_1);
                 }
                 rips2_1 = [];
             }
