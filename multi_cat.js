@@ -66,6 +66,9 @@ async function main(){
     }
     var catName1 = document.getElementById("cat1").value.split("\n");
     var catName2 = document.getElementById("cat2").value.split("\n");
+    if(catName2 == ""){
+        var catName2 = document.getElementById("cat1").value.split("\n");
+    }
     var method;
     var rips1 = [];
     var rips2_1 = [];
