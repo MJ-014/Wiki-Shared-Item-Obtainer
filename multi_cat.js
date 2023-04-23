@@ -72,6 +72,7 @@ async function main(){
 
     var catName1 = document.getElementById("cat1").value.split("\n");
     var catName2 = document.getElementById("cat2").value.split("\n");
+    var catNeg = document.getElementById("neg").value.split("\n");
     if(catName2 == ""){
         catName2 = document.getElementById("cat1").value.split("\n");
     }
@@ -79,6 +80,7 @@ async function main(){
     var rips1 = [];
     var rips2_1 = [];
     var rips2 = [];
+    var negRips = [];
 
     if(document.getElementById("methodAnd").checked){
         method = "and";
@@ -121,8 +123,18 @@ async function main(){
             }
         }
     }
+    for (let item of catNeg){
+        if(item.includes('%')){
+            await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + item + "&list=categorymembers&cmlimit=500&origin=*&format=json", negRips);
+        }
+        else{
+            await getJason("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + encodeURIComponent(item) + "&list=categorymembers&cmlimit=500&origin=*&format=json", negRips);
+        }
+    }
 
     rips1 = await intersection(rips1, rips2);
+
+    rips1 = rips1.filter(x => !negRips.includes(x));
     
     if(document.getElementById('number').checked){
         for(let item of rips1){
