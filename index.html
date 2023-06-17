@@ -13,6 +13,7 @@
                 <td>Input categories:</td>
                 <td><textarea id="cat1"></textarea></td>
             </tr>
+            <tr>
                 <td>Filter categories:</td>
                 <td><textarea id="cat2"></textarea></td>
             </tr>
@@ -20,13 +21,17 @@
                 <td>Negative categories:</td>
                 <td><textarea id="neg"></textarea></td>
             </tr>
-            <tr><td><br></td></tr>
+            <tr>
+                <td><br></td>
+            </tr>
             <tr>
                 <td><label>Filter method:</label></td>
                 <td><input type="radio" name="method" id="methodAnd" checked><label for="methodAnd" title="This shows the items that are in all of the filter categories">and</label>
                     <input type="radio" name="method" id="methodOr"><label for="methodOr" title="This shows the items that are at least in one of the categories">or</label></td>
             </tr>
-            <tr><td><br></td></tr>
+            <tr>
+                <td><br></td>
+            </tr>
             <tr>
                 <td><label>Number each item</label></td>
                 <td><input type="checkbox" id="number" name="number"></td>
@@ -35,12 +40,14 @@
                 <td><label>Link each item</label></td>
                 <td><input type="checkbox" id="link" name="link"></td>
             </tr>
-            <tr><td><br></td></tr>
+            <tr>
+                <td><br></td>
+            </tr>
             <tr>
                 <td><button onclick="main()">Search</button></td>
             </tr>
         </table>
-        <p id="output">TEEnter the wiki URL in the "Wiki" field (Don't enter the "Https://" part).<br>Enter categories in the "Category" fields.<br>(You don't need "Category:" part, just the name of the category is enough).<br>For more than one category as input or the filter, add more with a new line.</p>
+        <p id="output">Enter the wiki URL in the "Wiki" field (Don't enter the "Https://" part).<br>Enter categories in the "Category" fields.<br>(You don't need "Category:" part, just the name of the category is enough).<br>For more than one category as input or the filter, add more with a new line.</p>
 
         <style>
             .center{
