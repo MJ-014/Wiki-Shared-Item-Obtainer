@@ -138,7 +138,7 @@ async function main(){
     
     if(document.getElementById('link').checked){
         for(let item of rips1){
-            rips1[rips1.indexOf(item)] = item + "</a>";
+            rips1[rips1.indexOf(item)] = rips1.indexOf(item) + 8 + " - " + item;
         }
     }
     if(document.getElementById('number').checked){
