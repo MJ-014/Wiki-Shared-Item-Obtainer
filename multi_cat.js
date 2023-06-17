@@ -136,7 +136,7 @@ async function main(){
 
     rips1 = rips1.filter(x => !negRips.includes(x));
     
-    if(document.getElementById('linkButton').checked){
+    if(document.getElementById('Test').checked){
         for(let item of rips1){
             rips1[rips1.indexOf(item)] = "<a href=\"" + "https://" + wiki + "\\wiki\\" + item + "\">" + item + "</a>";
         }
