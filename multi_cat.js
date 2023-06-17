@@ -138,7 +138,7 @@ async function main(){
     
     if(document.getElementById('link').checked){
         for(let item of rips1){
-            rips1[rips1.indexOf(item)] = "<a href=\"" + "https://" + wiki + "\\wiki\\" + item + "\">" + item + "</a>";
+            rips1[rips1.indexOf(item)] = item + "</a>";
         }
     }
     if(document.getElementById('number').checked){
