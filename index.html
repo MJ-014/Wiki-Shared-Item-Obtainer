@@ -1,67 +1,78 @@
 <html>
-    <head>
-        <title>Wiki Category Grabber</title>
-        <script src="multi_cat.js"></script>
-    </head>
-    <body>
-        <table class="center">
-            <tr>
-                <td>Wiki:</td>
-                <td><input id="wiki" placeholder="E.g. siivagunner.fandom.com"></td>
-            </tr>
-            <tr>
-                <td>Input categories:</td>
-                <td><textarea id="cat1"></textarea></td>
-            </tr>
-            <tr>
-                <td>Filter categories:</td>
-                <td><textarea id="cat2"></textarea></td>
-            </tr>
-            </tr>
-                <td>Negative categories:</td>
-                <td><textarea id="neg"></textarea></td>
-            </tr>
-            <tr>
-                <td><br></td>
-            </tr>
-            <tr>
-                <td><label>Filter method:</label></td>
-                <td><input type="radio" name="method" id="methodAnd" checked><label for="methodAnd" title="This shows the items that are in all of the filter categories">and</label>
-                    <input type="radio" name="method" id="methodOr"><label for="methodOr" title="This shows the items that are at least in one of the categories">or</label></td>
-            </tr>
-            <tr>
-                <td><br></td>
-            </tr>
-            <tr>
-                <td><label>Number each item</label></td>
-                <td><input type="checkbox" id="number" name="number"></td>
-            </tr>
-            <tr>
-                <td><label>Link each item</label></td>
-                <td><input type="checkbox" id="linkButton" name="linkButton"></td>
-            </tr>
-            <tr>
-                <td><br></td>
-            </tr>
-            <tr>
-                <td><button onclick="main()">Search</button></td>
-            </tr>
-        </table>
-        <p id="output">Enter the wiki URL in the "Wiki" field (Don't enter the "Https://" part).<br>Enter categories in the "Category" fields.<br>(You don't need "Category:" part, just the name of the category is enough).<br>For more than one category as input or the filter, add more with a new line.</p>
 
-        <style>
-            .center{
-                margin-left: auto;
-                margin-right: auto;
-                vertical-align: auto;
-            }
-            td{
-                vertical-align: auto;
-            }
-            textarea {
-                width: 300px;
-                height: 100;
-            }
-        </style>
-    </body>
+<head>
+    <title>Wiki Category Grabber</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body class="pt-3">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1  text-end pe-5">Wiki:</div>
+            <div class=" col-12 col-md-8 pb-1">
+                <input id="wiki" placeholder="E.g. siivagunner.fandom.com" class="form-control">
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1 text-end pe-5">Input categories:</div>
+            <div class="col-12 col-md-8 pb-1">
+                <textarea id="cat1" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1  text-end pe-5">Filter categories:</div>
+            <div class="col-12 col-md-8 pb-1">
+                <textarea id="cat2" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1  text-end pe-5">Negative categories:</div>
+            <div class="col-12 col-md-8 pb-1">
+                <textarea id="neg" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row text-center pb-4">
+            <div class="col-12 col-md-4 text-end pe-5">Filter method:</div>
+            <div class="col-12 col-md-8 text-start">
+                <input type="radio" name="method" id="methodAnd" class="form-check-input" checked> <label
+                    class="form-check-label">And</label>
+
+                <input type="radio" name="method" id="methodOr" class="form-check-input"> <label
+                    class="form-check-label">Or</label>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 col-md-4 text-end pe-5">
+                Number each item:
+                <br>
+                Link each item:
+            </div>
+            <div class="col-12 col-md-8 text-start pb-4">
+                <input type="checkbox" id="number" name="number" class="form-check-input">
+                <br>
+                <input type="checkbox" id="linkButton" name="linkButton" class="form-check-input">
+            </div>
+        </div>
+        <div class="row text-center pb-3">
+            <button onclick="main()" class="col-12 btn btn-secondary"
+                style="width: fit-content; margin: 0 auto;">Search</button>
+        </div>
+        <div class="row">
+            <div class="col-md-4 d-none d-md-block"></div>
+            <p id="output" class="col-12 col-md-8" style="width: fit-content;">
+                Enter the wiki URL in the "Wiki" field (Don't enter the "Https://" part).
+                <br>
+                Enter categories in the "Category" fields.
+                <br>
+                (You don't need "Category:" part, just the name of the category is enough).
+                <br>
+                For more than one category as input or the filter, add more with a new line.
+            </p>
+        </div>
+    </div>
+
+    <script src="multi_cat.js"></script>
+</body>
+
 </html>
