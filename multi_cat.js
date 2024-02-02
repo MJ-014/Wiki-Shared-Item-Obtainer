@@ -72,6 +72,7 @@ async function main(){
 
     var catName1 = document.getElementById("cat1").value.split("\n");
     var catName2 = document.getElementById("cat2").value.split("\n");
+    var nameFilter = document.getElementById("nameFilter").value.split("\n");
     var catNeg = document.getElementById("neg").value.split("\n");
     if(catName2 == ""){
         catName2 = document.getElementById("cat1").value.split("\n");
@@ -135,6 +136,14 @@ async function main(){
     rips1 = await intersection(rips1, rips2);
 
     rips1 = rips1.filter(x => !negRips.includes(x));
+
+    if(nameFilter != ""){
+        for (let i = rips1.length - 1; i >= 0; i--) {
+            if (!rips1[i].includes(nameFilter)) {
+                rips1.splice(i, 1);
+            }
+        }
+    }
     
     if(document.getElementById('linkButton').checked){
         for(let item of rips1){
