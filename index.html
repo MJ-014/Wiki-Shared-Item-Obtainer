@@ -9,31 +9,37 @@
 <body class="pt-3">
     <div class="container">
         <div class="row text-center">
-            <div class="col-12 col-md-4 pb-1  text-end pe-5">Wiki:</div>
+            <div title="The wiki you want to seach in" class="col-12 col-md-4 pb-1  text-end pe-5">Wiki:</div>
             <div class=" col-12 col-md-6 pb-1">
                 <input id="wiki" placeholder="E.g. siivagunner.fandom.com" class="form-control">
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-12 col-md-4 pb-1 text-end pe-5">Input categories:</div>
+            <div title="Your first category" class="col-12 col-md-4 pb-1 text-end pe-5">Input categories:</div>
             <div class="col-12 col-md-6 pb-1">
                 <textarea id="cat1" class="form-control"></textarea>
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-12 col-md-4 pb-1  text-end pe-5">Filter categories:</div>
+            <div title="Your second category &#010Items that are included in both this and the previous category will show up as a result" class="col-12 col-md-4 pb-1  text-end pe-5">Filter categories:</div>
             <div class="col-12 col-md-6 pb-1">
                 <textarea id="cat2" class="form-control"></textarea>
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-12 col-md-4 pb-1  text-end pe-5">Negative categories:</div>
+            <div title="In case you want items that contain specific words/characters in the title" class="col-12 col-md-4 pb-1  text-end pe-5">Filter by name:</div>
+            <div class="col-12 col-md-6 pb-1">
+                <textarea id="nameFilter" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div title="For categories you don't want to show up  &#010The result will be items that have the first category and the second category, but don't have the categories listed here" class="col-12 col-md-4 pb-1  text-end pe-5">Negative categories:</div>
             <div class="col-12 col-md-6 pb-1">
                 <textarea id="neg" class="form-control"></textarea>
             </div>
         </div>
         <div class="row text-center pb-4">
-            <div class="col-12 col-md-4 text-end pe-5">Filter method:</div>
+            <div title="And: items that have first category, AND the second category &#010Or: items that have either the first category, the second category, or both of them" class="col-12 col-md-4 text-end pe-5">Filter method:</div>
             <div class="col-12 col-md-8 text-start">
                 <input type="radio" name="method" id="methodAnd" class="form-check-input" checked> <label
                     class="form-check-label">And</label>
