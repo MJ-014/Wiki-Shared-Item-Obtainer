@@ -62,7 +62,8 @@ function countOccurrences(inputList) {
     const dictionary = {};
     const banned = ['Super Goomba Bros. Music', 'Super Mario Bros. Music', 'All Night Nippon Super Mario Bros. Music', 'Super Mario All Stars', 'Super Mario All-Stars', 'Super Mario 3D All Stars', 'Super Mario 3D All-Stars', 'Donkey Kong Music', 'Donkey Kong Jr. Music', 'Donkey Kong Jr. Math Music'];
 
-    inputList.forEach(item => {
+    for(let item of inputList)
+    {
         var flag = true;
         banned.forEach(w => {
             if(item.includes(w)){
@@ -76,7 +77,7 @@ function countOccurrences(inputList) {
         })
         if(flag){
             const parts = item.split(' - ');
-            var key = parts[1];
+            var key = parts[parts.length - 1];
             if(isNumeric(key)){
                 key += '‌';
             }
@@ -87,7 +88,7 @@ function countOccurrences(inputList) {
                 dictionary[key] = 1;
             }
         }
-    });
+    };
 
     return dictionary;
 }
@@ -99,7 +100,6 @@ function sort_object(obj) {
 
     return sortedDictionary;
 }
-
 
 function dictionaryToString(obj) {
     let resultString = '';
