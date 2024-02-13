@@ -26,48 +26,56 @@
         input {
             width: 70% !important;
         }
-
-        .container {
-            padding: 0 150px 0 150px;
-            display: flex;
-            justify-content: center;
-            max-width: none;
-            width: 100vw;
-        }
     </style>
 </head>
 
 <body>
-    <!-- Change page -->
     <div class="m-2 mb-4">
-        <a href="index.html" class="btn header-btn">
-            <span>Shared Item Grabber</span>
-        </a>
-        <a href="contributor_game.html" class="btn header-btn">
-            <span>Contributor Grabber</span>
-        </a>
-        <a href="category_category_grabber.html" class="btn header-btn">
-            <span>Category Category Grabber</span>
-        </a>
-    </div>
-
-    <!-- Main container -->
-    <div class="container row">
-        <!-- Inputs -->
-        <div class="pb-5 col-12 d-flex justify-content-center">
-            <span title="The category you want to seach for categories" class="pe-3">Category:</span>
-            <input id="cat" class="form-control">
+        <div class="m-2 mb-4">
+            <a href="index.html" class="btn header-btn">
+                <span>Shared Item Grabber</span>
+            </a>
+            <a href="contributor_game.html" class="btn header-btn">
+                <span>Category Category Grabber</span>
+            </a>
         </div>
-        <!-- Button -->
-        <div class="col-12 text-center pb-3">
+    </div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1  text-end pe-5">Category:</div>
+            <div class=" col-12 col-md-6 pb-1">
+                <input id="cat" class="form-control">
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1  text-end pe-5">Filter Category:</div>
+            <div class=" col-12 col-md-6 pb-1">
+                <input id="fil" class="form-control">
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 col-md-4 pb-1  text-end pe-5">Negative Category:</div>
+            <div class=" col-12 col-md-6 pb-1">
+                <input id="neg" class="form-control">
+            </div>
+        </div>
+        <div class="row text-center pb-3">
             <button onclick="main()" class="col-12 btn btn-secondary"
                 style="width: fit-content; margin: 0 auto;">Search</button>
         </div>
-        <!-- Output -->
-        <div class="col-12 justify-content-center">
-            <div class="d-none d-md-block"></div>
-            <p id="output" style="width: fit-content;">
-                Enter the name of a category and you will see what categories the pages of your input categories are in.
+        <div class="row">
+            <div class="col-md-4 d-none d-md-block"></div>
+            <p id="output" class="col-12 col-md-8" style="width: fit-content;tab-size: 4;">
+                Enter a category in the "Category" field.<br>This tool will go through the pages in your inputted
+                category, and count all of their categories<br>So you can see how many categories are in the pages of
+                your desired category!<br><br>The Filter category allows you to filter the result by their own
+                category<br>For example, you can enter the following into that field to get your desired results!<br>
+                <b>&emsp;&emsp;- Playlists:</b> Will show you only the games<br>
+                <b>&emsp;&emsp;- Albums:</b> Will show you only the albums<br>
+                <b>&emsp;&emsp;- Rips by author:</b> Will show you only the rippers<br>
+                <b>&emsp;&emsp;- Rips by month:</b> Will show you only the months<br>
+                And so on!<br>The Negative category will do the opposite, and will remove the category you don't want to
+                see
             </p>
         </div>
     </div>
