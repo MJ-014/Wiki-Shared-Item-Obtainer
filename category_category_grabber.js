@@ -125,14 +125,20 @@ async function main() {
 
     await getJason("https://siivagunner.fandom.com/api.php?action=query&cmtitle=Category:" + encodeURIComponent(cat) + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1);
 
+    document.getElementById("output").innerHTML = "Input category fetched...";
+    
     for (let item of rips1) {
         rips2 = await getCategories(item);
+        document.getElementById("output").innerHTML = "Storing inner categories %" + Math.floor((rips1.indexOf(item)/rips1.length)*100) + "...";
         rips3 = rips3.concat(rips2);
     }
+
+    document.getElementById("output").innerHTML = "Inner categories fetched...";
 
 
     if (catFilter != "Category:" || catNeg != "Category:") {
         for (let secondCat of rips3.filter((item, index) => rips3.indexOf(item) === index)) {
+            document.getElementById("output").innerHTML = "Applying filter %" + Math.floor((rips3.indexOf(secondCat)/rips3.length)*100) + "...";
             categoryCategory = await getCategories(secondCat);
             if (catFilter != "Category:") {
                 if (!categoryCategory.includes(catFilter)) {
@@ -146,6 +152,6 @@ async function main() {
             }
         }
     }
-    
+
     document.getElementById("output").innerHTML = await dictionaryToString(rips3);
 }
