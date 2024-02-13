@@ -52,7 +52,8 @@ async function getJason(url, arr) {
 
 }
 
-async function getCategories(url, arr) {
+async function getCategories(url) {
+    var arr = [];
     var response = await fetch("https://siivagunner.fandom.com/api.php?action=query&prop=categories&titles=" + encodeURIComponent(url) + "&format=json&origin=*&cllimit=500");
     var jason = await response.json();
     try {
@@ -63,47 +64,23 @@ async function getCategories(url, arr) {
     catch (error) {
         document.getElementById("output").innerHTML = "There was a problem. Please check your input.";
     }
-    /*     while (true) {
-            var response = await fetch(url + "&cmcontinue=" + cat, { method: 'GET' });
-            var jason = await response.json();
-            try {
-                var number = jason.query.pages;
-                jason.query.pages[number].categories.forEach(element => {
-                    arr.push(element.title);
-                })
-            }
-            catch (error) {
-                document.getElementById("output").innerHTML = "There was a problem. Please check your input.";
-            }
-    
-        } */
-}
 
-function isNumeric(str) {
-    if (typeof str != "string") return false
-    return !isNaN(str) &&
-        !isNaN(parseFloat(str))
+    return arr;
 }
 
 async function countOccurrences(inputList) {
     const dictionary = {};
 
-    for (let rip of inputList) {
-        var x2 = []
-        await getCategories(rip, x2);
-        for (let item of x2) {
-            if (isNumeric(item)) {
-                key += '‌';
-            }
-            if (dictionary[item]) {
-                dictionary[item]++;
-            } else {
-                dictionary[item] = 1;
-            }
+    var x2 = []
+    //x2 = await getCategories(rip);
+    for (let item of inputList) {
+        if (dictionary[item]) {
+            dictionary[item]++;
+        } else {
+            dictionary[item] = 1;
         }
-    };
+    }
 
-    console.log(dictionary);
     return dictionary;
 }
 
@@ -132,16 +109,43 @@ async function dictionaryToString(obj) {
 
 async function main() {
     var cat = document.getElementById("cat").value;
+    var catFilter = "Category:" + document.getElementById("fil").value.split("\n");
+    var catNeg = "Category:" + document.getElementById("neg").value.split("\n");
+
+    var rips1 = [];
+    var rips2 = [];
+    var rips3 = [];
+
     if (cat == "") {
         alert("Please provide a category.");
         return;
     }
 
-    var rips1 = [];
-
     document.getElementById("output").innerHTML = "Working on your request...";
 
     await getJason("https://siivagunner.fandom.com/api.php?action=query&cmtitle=Category:" + encodeURIComponent(cat) + "&list=categorymembers&cmlimit=500&origin=*&format=json", rips1);
 
-    document.getElementById("output").innerHTML = await dictionaryToString(rips1);
+    for (let item of rips1) {
+        rips2 = await getCategories(item);
+        rips3 = rips3.concat(rips2);
+    }
+
+
+    if (catFilter != "Category:" || catNeg != "Category:") {
+        for (let secondCat of rips3.filter((item, index) => rips3.indexOf(item) === index)) {
+            categoryCategory = await getCategories(secondCat);
+            if (catFilter != "Category:") {
+                if (!categoryCategory.includes(catFilter)) {
+                    rips3 = rips3.filter(item => item !== secondCat);
+                }
+            }
+            if (catNeg != "Category:") {
+                if (categoryCategory.includes(catNeg)) {
+                    rips3 = rips3.filter(item => item !== secondCat);
+                }
+            }
+        }
+    }
+    
+    document.getElementById("output").innerHTML = await dictionaryToString(rips3);
 }
