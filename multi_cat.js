@@ -149,7 +149,7 @@ async function main() {
 
     if (document.getElementById('linkButton').checked) {
         for (let item of rips1) {
-            rips1[rips1.indexOf(item)] = "<a href=\"" + "https://" + wiki + "\\wiki\\" + item + "\">" + item + "</a>";
+            rips1[rips1.indexOf(item)] = "<a href=\"" + "https://" + wiki + "\\wiki\\" + encodeURIComponent(item).replace("#", "") + "\">" + item + "</a>";
         }
     }
     if (document.getElementById('number').checked) {
