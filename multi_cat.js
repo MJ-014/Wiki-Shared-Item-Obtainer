@@ -58,8 +58,10 @@ function intersection(first, second) {
     return first.filter(item => s.has(item));
 };
 
+var wiki
+
 async function main() {
-    var wiki = document.getElementById("wiki").value;
+    wiki = document.getElementById("wiki").value;
     if (wiki == "") {
         alert("Please provide a wiki.");
         return;
@@ -161,5 +163,37 @@ async function main() {
         rips1 = rips1.sort();
     }
 
+    document.getElementById("output").innerHTML = rips1.join("<br>");
+}
+
+function linkItems(cb) {
+    var rips1 = document.getElementById("output").innerHTML.split('<br>')
+    if (cb.checked) {
+        for (let item of rips1) {
+            rips1[rips1.indexOf(item)] = "<a href=\"https://" + wiki + "\\wiki\\" + item + "\">" + item + "</a>";
+        }
+    }
+    else {
+        const regex = /<[^<>]*>/g;
+        for (let item of rips1) {
+            rips1[rips1.indexOf(item)] = item.replace(regex, "");
+        }
+    }
+    document.getElementById("output").innerHTML = rips1.join("<br>");
+}
+
+function numberItems(cb) {
+    var rips1 = document.getElementById("output").innerHTML.split('<br>')
+    if (cb.checked) {
+        for (let item of rips1) {
+            rips1[rips1.indexOf(item)] = rips1.indexOf(item) + 1 + " - " + item;
+        }
+    }
+    else {
+        const regex = /^\d+ - /gm;
+        for (let item of rips1) {
+            rips1[rips1.indexOf(item)] = item.replace(regex, "");
+        }
+    }
     document.getElementById("output").innerHTML = rips1.join("<br>");
 }
