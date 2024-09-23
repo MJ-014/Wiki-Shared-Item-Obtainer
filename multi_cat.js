@@ -2,7 +2,8 @@ async function getJason(url, arr) {
     // Get category length
     var countJason = await fetch("https://" + wiki + "/api.php?action=query&prop=categoryinfo&titles=Category:" + url + "&origin=*&format=json")
     var countJasonJason = await countJason.json();
-    var count = countJasonJason.query.pages[Object.keys(countJasonJason.query.pages)[0]].categoryinfo.size;
+    var size = countJasonJason.query.pages[Object.keys(countJasonJason.query.pages)[0]].categoryinfo.size;
+    var count = 0;
 
     // Getting category items
     // Getting first set of items
@@ -11,7 +12,8 @@ async function getJason(url, arr) {
 
     try {
         jason.query.categorymembers.forEach(element => {
-            //document.getElementById("output").innerHTML = "Getting categories %" + Math.floor((arr.indexOf(element.title) / count) * 100) + " [" + arr.indexOf(element.title) + "/" + count + "]" + "...";
+            count += 1;
+            document.getElementById("output").innerHTML = "Getting categories %" + Math.floor((count / size) * 100) + " [" + count + "/" + size + "]" + "...";
             arr.push(element.title);
         })
     }
@@ -25,11 +27,14 @@ async function getJason(url, arr) {
         
         var response = await fetch("https://" + wiki + "/api.php?action=query&cmtitle=Category:" + url + "&list=categorymembers&cmlimit=500&origin=*&format=json&cmcontinue=" + cont, { method: 'GET' });
         var jason = await response.json();
-        if (jason.continue !== undefined) {
-            var cont = jason.continue.cmcontinue
-        }
+        
+        // Checks to see if the new batch has continue or not
+        if (jason.continue !== undefined) var cont = jason.continue.cmcontinue
+
         try {
             jason.query.categorymembers.forEach(element => {
+                count += 1;
+                document.getElementById("output").innerHTML = "Getting categories %" + Math.floor((count / size) * 100) + " [" + count + "/" + size + "]" + "...";
                 arr.push(element.title);
             })
         }
