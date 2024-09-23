@@ -60,6 +60,7 @@ var tempCatName1;
 var tempCatName2;
 var rips1Temp = [];
 var rips2Temp = [];
+var methodTemp;
 
 async function main() {
     // Get wiki
@@ -80,15 +81,14 @@ async function main() {
     var nameFilter = document.getElementById("nameFilter").value.split("\n");
     var catNeg = document.getElementById("neg").value.split("\n");
     var method;
+    if (document.getElementById("methodAnd").checked) method = "and";
+    else method = "or";
 
     // Lists and such
     var rips1 = [];
     var rips2 = [];
     var rips2_1 = [];
     var negRips = [];
-
-    // Check which function has been selected
-    if (document.getElementById("methodAnd").checked) method = "and";
 
     document.getElementById("output").innerHTML = "Working on your request...";
 
@@ -104,7 +104,7 @@ async function main() {
     else rips1 = rips1Temp;
 
     // Category 2
-    if (JSON.stringify(tempCatName2) != JSON.stringify(catName2)) {
+    if (JSON.stringify(tempCatName2) != JSON.stringify(catName2) || methodTemp != method) {
         if (catName2 == "") rips2 = rips1;
         else {
             for (let item of catName2) {
@@ -121,6 +121,7 @@ async function main() {
         }
         rips2Temp = rips2;
         tempCatName2 = catName2;
+        methodTemp = method;
     }
     else rips2 = rips2Temp;
 
