@@ -1,9 +1,14 @@
 async function getJason(url, arr) {
     // Get category length
-    var countJason = await fetch("https://" + wiki + "/api.php?action=query&prop=categoryinfo&titles=Category:" + url + "&origin=*&format=json")
-    var countJasonJason = await countJason.json();
-    var size = countJasonJason.query.pages[Object.keys(countJasonJason.query.pages)[0]].categoryinfo.size;
-    var count = 0;
+    try {
+        var countJason = await fetch("https://" + wiki + "/api.php?action=query&prop=categoryinfo&titles=Category:" + url + "&origin=*&format=json")
+        var countJasonJason = await countJason.json();
+        var size = countJasonJason.query.pages[Object.keys(countJasonJason.query.pages)[0]].categoryinfo.size;
+        var count = 0;
+    }
+    catch (error) {
+        document.getElementById("output").innerHTML = "There was a problem. Please check your input.";
+    }
 
     // Getting category items
     // Getting first set of items
@@ -51,6 +56,10 @@ async function intersection(first, second) {
 };
 
 var wiki
+var tempCatName1;
+var tempCatName2;
+var rips1Temp = [];
+var rips2Temp = [];
 
 async function main() {
     // Get wiki
@@ -78,33 +87,42 @@ async function main() {
     var rips2_1 = [];
     var negRips = [];
 
-    if (document.getElementById("methodAnd").checked) {
-        method = "and";
-    }
+    // Check which function has been selected
+    if (document.getElementById("methodAnd").checked) method = "and";
 
     document.getElementById("output").innerHTML = "Working on your request...";
 
     // Category 1
-    for (let item of catName1) {
-        if (item.includes('%')) await getJason(item, rips1);
-        else await getJason(encodeURIComponent(item), rips1);
+    if (JSON.stringify(tempCatName1) != JSON.stringify(catName1)) {
+        for (let item of catName1) {
+            if (item.includes('%')) await getJason(item, rips1);
+            else await getJason(encodeURIComponent(item), rips1);
+        }
+        rips1Temp = rips1;
+        tempCatName1 = catName1;
     }
+    else rips1 = rips1Temp;
 
     // Category 2
-    if (catName2 == "") rips2 = rips1;
-    else {
-        for (let item of catName2) {
-            if (item.includes('%')) await getJason(item, rips2_1);
-            else await getJason(encodeURIComponent(item), rips2_1);
+    if (JSON.stringify(tempCatName2) != JSON.stringify(catName2)) {
+        if (catName2 == "") rips2 = rips1;
+        else {
+            for (let item of catName2) {
+                if (item.includes('%')) await getJason(item, rips2_1);
+                else await getJason(encodeURIComponent(item), rips2_1);
 
-            if (method == "and") {
-                if (catName2.indexOf(item) == 0) rips2 = rips2_1;
-                else rips2 = await intersection(rips2_1, rips2);
-                rips2_1 = [];
+                if (method == "and") {
+                    if (catName2.indexOf(item) == 0) rips2 = rips2_1;
+                    else rips2 = await intersection(rips2_1, rips2);
+                    rips2_1 = [];
+                }
+                else rips2 = rips2_1
             }
-            else rips2 = rips2_1
         }
+        rips2Temp = rips2;
+        tempCatName2 = catName2;
     }
+    else rips2 = rips2Temp;
 
     // Negative category
     if (catNeg != "") {
