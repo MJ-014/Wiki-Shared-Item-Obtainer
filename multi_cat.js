@@ -50,6 +50,52 @@ async function getJason(url, arr) {
     }
 }
 
+async function getLinksInAPage(page, arr) {
+  // Getting every link in a given page
+  // Getting first set of items
+  document.getElementById("output").innerHTML = "Working on your request...";
+
+  var count = 0
+  var response = await fetch("https://" + wiki + "/api.php?action=query&prop=links&titles=" + page + "&pllimit=500&origin=*&format=json", { method: 'GET' });
+  var jason = await response.json();
+
+  try {
+    Object.values(jason.query.pages)[0].links.forEach(element => {
+        count += 1;
+        document.getElementById("output").innerHTML = "Found " + count + " links...";
+        arr.push(element.title);
+    })
+  }
+  catch (error) {
+      //
+  }
+
+  // Getting the rest of the items
+  while (jason.continue !== undefined) {
+    var cont = await jason.continue.plcontinue
+    
+    var response = await fetch("https://" + wiki + "/api.php?action=query&prop=links&titles=" + page + "&pllimit=500&origin=*&format=json&plcontinue=" + cont, { method: 'GET' });
+    var jason = await response.json();
+
+    
+    // Checks to see if the new batch has continue or not
+    if (jason.continue !== undefined) var cont = jason.continue.plcontinue
+
+    try {
+        Object.values(jason.query.pages)[0].links.forEach(element => {
+            count += 1;
+            document.getElementById("output").innerHTML = "Found " + count + " links...";
+            arr.push(element.title);
+        })
+    }
+    catch (error) {
+        //
+    }
+
+  }
+  
+}
+
 async function intersection(first, second) {
     var s = new Set(second);
     return first.filter(item => s.has(item));
@@ -71,18 +117,18 @@ async function main() {
     }
     wiki = wiki.replace("https://", "");
     wiki = wiki.replace("http://", "");
-    if (wiki.includes('wikipedia')) {
-        wiki = wiki + '/w';
-    }
 
     // Get items
     var catName1 = document.getElementById("cat1").value.split("\n");
     var catName2 = document.getElementById("cat2").value.split("\n");
     var nameFilter = document.getElementById("nameFilter").value.split("\n");
     var catNeg = document.getElementById("neg").value.split("\n");
-    var method;
-    if (document.getElementById("methodAnd").checked) method = "and";
-    else method = "or";
+    var fmethod;
+    if (document.getElementById("methodAnd").checked) fmethod = "and";
+    else fmethod = "or";
+    var cmethod;
+    if (document.getElementById("cmethodCat").checked) cmethod = "cat";
+    else cmethod = "page";
 
     // Lists and such
     var rips1 = [];
@@ -104,14 +150,20 @@ async function main() {
     else rips1 = rips1Temp;
 
     // Category 2
-    if (JSON.stringify(tempCatName2) != JSON.stringify(catName2) || methodTemp != method) {
+    if (JSON.stringify(tempCatName2) != JSON.stringify(catName2) || methodTemp != fmethod) {
         if (catName2 == "") rips2 = rips1;
         else {
             for (let item of catName2) {
-                if (item.includes('%')) await getJason(item, rips2_1);
-                else await getJason(encodeURIComponent(item), rips2_1);
+                if (cmethod == "cat") {
+                    if (item.includes('%')) await getJason(item, rips2_1);
+                    else await getJason(encodeURIComponent(item), rips2_1);
+                }
+                else {
+                    if (item.includes('%')) await getLinksInAPage(item, rips2_1);
+                    else await getLinksInAPage(encodeURIComponent(item), rips2_1);
+                }
 
-                if (method == "and") {
+                if (fmethod == "and") {
                     if (catName2.indexOf(item) == 0) rips2 = rips2_1;
                     else rips2 = await intersection(rips2_1, rips2);
                     rips2_1 = [];
@@ -121,7 +173,7 @@ async function main() {
         }
         rips2Temp = rips2;
         tempCatName2 = catName2;
-        methodTemp = method;
+        methodTemp = fmethod;
     }
     else rips2 = rips2Temp;
 
@@ -157,7 +209,7 @@ async function main() {
     // Check boxes
     if (document.getElementById('linkButton').checked) {
         for (let item of rips1) {
-            rips1[rips1.indexOf(item)] = "<a href=\"" + "https://" + wiki + "\\wiki\\" + encodeURIComponent(item).replace("#", "") + "\">" + item + "</a>";
+            rips1[rips1.indexOf(item)] = "<a href=\"" + "https://" + wiki.replace("/w", "") + "\\wiki\\" + encodeURIComponent(item).replace("#", "") + "\">" + item + "</a>";
         }
     }
     if (document.getElementById('number').checked) {
