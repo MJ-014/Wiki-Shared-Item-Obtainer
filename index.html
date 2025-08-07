@@ -1,118 +1,107 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Wiki Category Grabber</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <title>Wiki Category Grabber</title>
 
-        <style>
-            body {
-                background-color: #eee;
-            }
-    
-            .header-btn {
-                border-radius: 0;
-                margin: 0;
-                padding: 1px;
-                padding-right: 15px;
-            }
-            
-            .header-btn span {
-                font-size: small;
-                border-radius: 0;
-            }
-        </style>
+  <link rel="stylesheet" href="./tw.css" />
 </head>
 
-<body>
-    <div class="m-2 mb-4">
-        <div class="m-2 mb-4">
-            <a href="index.html" class="btn header-btn">
-                <span>Shared Item Grabber</span>
-            </a>
-            <a href="category_category_grabber.html" class="btn header-btn">
-                <span>Category Category Grabber</span>
-            </a>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row text-center">
-            <div title="The wiki you want to seach in" class="col-12 col-md-4 pb-1  text-end pe-5">Wiki:</div>
-            <div class=" col-12 col-md-6 pb-1">
-                <input id="wiki" placeholder="E.g. siivagunner.wiki/w" value="siivagunner.wiki/w" class="form-control">
-            </div>
-        </div>
-        <div class="row text-center">
-            <div title="Your first category" class="col-12 col-md-4 pb-1 text-end pe-5">Input categories:</div>
-            <div class="col-12 col-md-6 pb-1">
-                <textarea id="cat1" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div title="Your second category &#010Items that are included in both this and the previous category will show up as a result" class="col-12 col-md-4 pb-1  text-end pe-5">Filter categories:</div>
-            <div class="col-12 col-md-6 pb-1">
-                <textarea id="cat2" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div title="In case you want items that contain specific words/characters in the title" class="col-12 col-md-4 pb-1  text-end pe-5">Filter by name:</div>
-            <div class="col-12 col-md-6 pb-1">
-                <textarea id="nameFilter" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div title="For categories you don't want to show up  &#010The result will be items that have the first category and the second category, but don't have the categories listed here" class="col-12 col-md-4 pb-1  text-end pe-5">Negative categories:</div>
-            <div class="col-12 col-md-6 pb-1">
-                <textarea id="neg" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="row text-center pb-4">
-            <div title="And: items that have first category, AND the second category &#010Or: items that have either the first category, the second category, or both of them" class="col-12 col-md-4 text-end pe-5">Filter method:</div>
-            <div class="col-12 col-md-8 text-start">
-                <input type="radio" name="method" id="methodAnd" class="form-check-input" checked> <label
-                    class="form-check-label">And</label>
+<body class="bg-gray-200 text-red-500 dark:bg-gray-900 dark:text-red-300">
+  <header class="px-10 mb-4 h-14 leading-14 text-gray-700 dark:text-gray-300 flex gap-10">
+    <a href="index.html">
+      <span>Shared Item Grabber</span>
+    </a>
 
-                <input type="radio" name="method" id="methodOr" class="form-check-input"> <label
-                    class="form-check-label">Or</label>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col-12 col-md-4 text-end pe-5">
-                Number each item:
-                <br>
-                Link each item:
-                <br>
-                Sort alphabatically:
-            </div>
-            <div class="col-12 col-md-8 text-start pb-5">
-                <input type="checkbox" id="number" name="number" class="form-check-input" onchange="numberItems(this)">
-                <br>
-                <input type="checkbox" id="linkButton" name="linkButton" class="form-check-input" onchange="linkItems(this)">
-                <br>
-                <input type="checkbox" id="sort" name="sort" class="form-check-input">
-            </div>
-        </div>
-        <div class="row text-center pb-3">
-            <button onclick="main()" class="col-12 btn btn-secondary"
-                style="width: fit-content; margin: 0 auto;">Search</button>
-        </div>
-        <div class="row">
-            <div class="col-md-4 d-none d-md-block"></div>
-            <p id="output" class="col-12 col-md-8" style="width: fit-content;">
-                Enter the wiki URL in the "Wiki" field (Don't enter the "Https://" part).
-                <br>
-                Enter categories in the "Category" fields.
-                <br>
-                (You don't need "Category:" part, just the name of the category is enough).
-                <br>
-                For more than one category as input or the filter, add more with a new line.
-            </p>
-        </div>
+    <a href="category_category_grabber.html">
+      <span>Category Category Grabber</span>
+    </a>
+
+    <a href="multi_cat.html" class="ms-auto">
+      Advanced Mode
+    </a>
+  </header>
+
+  <div class="max-w-175 mx-auto flex flex-col gap-4">
+    <div class="flex">
+      <div title="The wiki you want to search in"
+        class="w-60 flex items-center justify-end pe-5 text-gray-800 dark:text-gray-200">
+        Wiki:
+      </div>
+      <div class="flex-grow">
+        <input id="wiki" placeholder="E.g. siivagunner.wiki/w" value="siivagunner.wiki/w"
+          class="w-full bg-gray-50 text-gray-800 p-2 rounded-lg dark:bg-gray-800 dark:text-gray-100" />
+      </div>
     </div>
 
-    <script src="multi_cat.js"></script>
+    <div class="flex">
+      <div title="Your first category" class="w-60 flex items-center justify-end pe-5 text-gray-800 dark:text-gray-200">
+        Input categories:
+      </div>
+      <div class="flex-grow">
+        <textarea id="cat1"
+          class="w-full bg-gray-50 text-gray-800 p-2 rounded-lg dark:bg-gray-800 dark:text-gray-100"></textarea>
+      </div>
+    </div>
+
+    <div class="flex">
+      <div
+        title="Your second category &#010;Items that are included in both this and the previous category will show up as a result"
+        class="w-60 flex items-center justify-end pe-5 text-gray-800 dark:text-gray-200">
+        Filter categories:
+      </div>
+      <div class="flex-grow">
+        <textarea id="cat2"
+          class="w-full bg-gray-50 text-gray-800 p-2 rounded-lg dark:bg-gray-800 dark:text-gray-100"></textarea>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <div class="flex">
+        <div class="w-60 flex items-center justify-end pe-5 text-gray-800 dark:text-gray-200">
+          Number each item:
+        </div>
+        <div class="flex-grow">
+          <input type="checkbox" id="number" name="number" onchange="numberItems(this)" />
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="w-60 flex items-center justify-end pe-5 text-gray-800 dark:text-gray-200">
+          Link each item:
+        </div>
+        <div class="flex-grow">
+          <input type="checkbox" id="linkButton" name="linkButton" class="form-check-input"
+            onchange="linkItems(this)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <button onclick="main()"
+        class="bg-blue-200 p-2 rounded-lg text-gray-800 hover:bg-blue-300 dark:bg-blue-800 dark:text-white dark:hover:bg-blue-700 transition-colors cursor-pointer">
+        Search
+      </button>
+    </div>
+
+    <div class="ps-60 mt-10 text-gray-900 dark:text-gray-100">
+      <div class="col-md-4 d-none d-md-block"></div>
+      <p id="output" class="text-nowrap" style="width: fit-content">
+        Enter the wiki URL in the "Wiki" field (Don't enter the "https://"
+        part).
+        <br />
+        Enter categories in the "Category" fields.
+        <br />
+        (You don't need "Category:" part, just the name of the category is
+        enough).
+        <br />
+        For more than one category as input or the filter, add more with a new
+        line.
+      </p>
+    </div>
+  </div>
+
+  <script src="multi_cat_simple.js"></script>
 </body>
 
 </html>
-
-
