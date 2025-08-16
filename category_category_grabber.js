@@ -56,7 +56,7 @@ async function getJason(url) {
 
 async function getCategories(url) {
     var arr = [];
-    var response = await fetch("https://siivagunner.fandom.com/api.php?action=query&prop=categories&titles=" + encodeURIComponent(url) + "&format=json&origin=*&cllimit=500");
+    var response = await fetch("https://siivagunner.wiki/w/api.php?action=query&prop=categories&titles=" + encodeURIComponent(url) + "&format=json&origin=*&cllimit=500");
     var jason = await response.json();
     try {
         jason.query.pages[Object.keys(jason.query.pages)[0]].categories.forEach(element => {
@@ -72,7 +72,7 @@ async function getCategories(url) {
 
 async function getSize(url) {
     var arr = [];
-    var response = await fetch("https://siivagunner.fandom.com/api.php?action=query&prop=categoryinfo&titles=" + encodeURIComponent(url) + "&format=json&origin=*");
+    var response = await fetch("https://siivagunner.wiki/w/api.php?action=query&prop=categoryinfo&titles=" + encodeURIComponent(url) + "&format=json&origin=*");
     var jason = await response.json();
     try {
         return jason.query.pages[Object.keys(jason.query.pages)[0]].categoryinfo.size;
@@ -133,7 +133,7 @@ async function main() {
     if (document.getElementById('size').checked) {
         document.getElementById("output").innerHTML = "Working on your request...";
 
-        rips1 = await getJason("https://siivagunner.fandom.com/api.php?action=query&cmtitle=Category:" + encodeURIComponent(cat) + "&list=categorymembers&cmlimit=500&origin=*&format=json");
+        rips1 = await getJason("https://siivagunner.wiki/w/api.php?action=query&cmtitle=Category:" + encodeURIComponent(cat) + "&list=categorymembers&cmlimit=500&origin=*&format=json");
 
         document.getElementById("output").innerHTML = "Input category fetched...";
 
@@ -159,7 +159,7 @@ async function main() {
 
         document.getElementById("output").innerHTML = "Working on your request...";
 
-        rips1 = await getJason("https://siivagunner.fandom.com/api.php?action=query&cmtitle=Category:" + encodeURIComponent(cat) + "&list=categorymembers&cmlimit=500&origin=*&format=json");
+        rips1 = await getJason("https://siivagunner.wiki/w/api.php?action=query&cmtitle=Category:" + encodeURIComponent(cat) + "&list=categorymembers&cmlimit=500&origin=*&format=json");
 
         document.getElementById("output").innerHTML = "Input category fetched...";
 
@@ -204,3 +204,4 @@ function checkboxCheck() {
         document.getElementById("output").innerHTML = "Enter a category in the \"Category\" field.<br>This tool will go through the items in your inputted category, and if there are categories in it, will output the size of those categories";
     }
 }
+
