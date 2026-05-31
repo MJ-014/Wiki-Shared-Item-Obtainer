@@ -43,7 +43,7 @@ async function getJason(url, arr) {
         try {
             jason.query.categorymembers.forEach(element => {
                 count += 1;
-                document.getElementById("output").innerHTML = "Getting categories %" + Math.floor((count / size) * 100) + " [" + count + "/" + size + "]" + "...";
+                document.getElementById("output").innerHTML = "Getting categories: " + Math.floor((count / size) * 100) + "% [" + count + "/" + size + "]" + "...";
                 arr.push(element.title);
             })
         }
