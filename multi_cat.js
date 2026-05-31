@@ -9,6 +9,8 @@ async function getJason(url, arr) {
     catch (error) {
         document.getElementById("output").innerHTML = "There was a problem. Please check your input.";
     }
+        
+	await new Promise(r => setTimeout(r, 2000));
 
     // Getting category items
     // Getting first set of items
@@ -18,13 +20,15 @@ async function getJason(url, arr) {
     try {
         jason.query.categorymembers.forEach(element => {
             count += 1;
-            document.getElementById("output").innerHTML = "Getting categories %" + Math.floor((count / size) * 100) + " [" + count + "/" + size + "]" + "...";
+            document.getElementById("output").innerHTML = "Getting categories: " + Math.floor((count / size) * 100) + "% [" + count + "/" + size + "]...";
             arr.push(element.title);
         })
     }
     catch (error) {
         document.getElementById("output").innerHTML = "There was a problem. Please check your input.";
     }
+        
+	await new Promise(r => setTimeout(r, 2000));
 
     // Getting the rest of the items
     while (jason.continue !== undefined) {
@@ -46,6 +50,8 @@ async function getJason(url, arr) {
         catch (error) {
             document.getElementById("output").innerHTML = "There was a problem. Please check your input.";
         }
+        
+        await new Promise(r => setTimeout(r, 2000));
 
     }
 }
